@@ -7,6 +7,7 @@ public class ThirdPersonMovement : MonoBehaviour
 {
     private CharacterController controller;
     private Transform cam;
+    private Animator animator;
     
     public float speed = 6f;
     
@@ -17,6 +18,7 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         cam = Camera.main.transform;
+        animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -28,6 +30,8 @@ public class ThirdPersonMovement : MonoBehaviour
         
         if (direction.magnitude >= 0.1f)
         {
+            animator.SetBool("isWalking", true);
+            
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,
                 turnSmoothTime);
@@ -35,6 +39,10 @@ public class ThirdPersonMovement : MonoBehaviour
             
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
         }
     }
 }
