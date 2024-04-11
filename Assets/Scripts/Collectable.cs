@@ -6,7 +6,9 @@ using UnityEngine;
 public class Collectable : MonoBehaviour
 {
     private Rigidbody rb;
+    public SphereCollider sphereCollider;
     
+    private bool grounded;
     
     public float attractSpeed = 5f;
     public float destroyDistance = 0.3f;
@@ -17,11 +19,20 @@ public class Collectable : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            grounded = true;
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && grounded)
         {
             rb.useGravity = false;
+            sphereCollider.enabled = false;
             
             transform.position = Vector3.MoveTowards(transform.position, other.transform.GetChild(1).position,
                 attractSpeed * Time.deltaTime);
@@ -34,6 +45,9 @@ public class Collectable : MonoBehaviour
 
     private void Update()
     {
-        transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+        if (grounded)
+        {
+            transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+        }
     }
 }
