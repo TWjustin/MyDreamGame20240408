@@ -3,21 +3,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HoverPoint : MonoBehaviour
+public class HoverPoint : MonoBehaviour // 名字待改
 {
-    private GridXZ<gridtest.GridObject> grid;
-
+    public GridManager gridManager;
+    
     public Transform hoverCanvas;
+    public Transform player;
+    
+    private int handlingX, handlingZ;
     private Vector3 hoverPosition;
-    private gridtest.GridObject handlingGrid;   // 待使用
+    public float forNegXZ = 2f;
+    
+    private GridManager.GridObject handlingGridObject;   // 待使用 // 待改
 
     private void Update()
     {
-        int hoverX = Mathf.FloorToInt(transform.position.x);
-        int hoverZ = Mathf.FloorToInt(transform.position.z);
-        hoverPosition = new Vector3(hoverX + 0.5f, 0.01f, hoverZ + 0.5f);
+        Vector3 spotPos = player.position;
         
-        hoverCanvas.position = hoverPosition;
-        handlingGrid = grid.GetValue(hoverPosition);
+        if (player.forward.x >= 0f)
+        {
+            spotPos += player.forward;
+            handlingX = Mathf.FloorToInt(spotPos.x);
+        }
+        else
+        {
+            spotPos += player.forward * forNegXZ;
+            handlingX = Mathf.CeilToInt(spotPos.x);
+        }
+        if (player.forward.z >= 0f)
+        {
+            spotPos += player.forward;
+            handlingZ = Mathf.FloorToInt(spotPos.z);
+        }
+        else
+        {
+            spotPos += player.forward * forNegXZ;
+            handlingZ = Mathf.CeilToInt(spotPos.z);
+        }
+        
+        
+        handlingGridObject = gridManager.grid.GetValue(new Vector3(handlingX, 0, handlingZ));
+        hoverCanvas.position = new Vector3(handlingX + 0.5f, 0.01f, handlingZ + 0.5f);
+        
+        
+        // Debug.Log(handlingGridObject.ToString());
     }
 }
