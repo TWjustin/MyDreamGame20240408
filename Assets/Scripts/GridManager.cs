@@ -22,7 +22,8 @@ public class GridManager : MonoBehaviour
         private GridXZ<GridObject> grid;
         private int x;
         private int z;
-        // private bool itemOnTop;
+        // private PlacedObject placedObject;
+        private bool selected;
 
         public GridObject(GridXZ<GridObject> grid, int x, int z)
         {
