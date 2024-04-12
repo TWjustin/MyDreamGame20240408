@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 910e9676bcccf4b44bf9a666d4ce6e7b, type: 3}
+  m_Name: SA
+  m_EditorClassIdentifier: 
+  <itemName>k__BackingField: Super Apple
+  <itemDescription>k__BackingField: 'Item toggledFalse
+
+    UnityEngine.Debug:Log
+    (object)
+
+    MouseFollower:ToggleVisibility (bool) (at Assets/Scripts/Inventory/MouseFollower.cs:32)
+
+    InventoryUI:Awake
+    () (at Assets/Scripts/Inventory/InventoryUI.cs:25)'
+  <itemIcon>k__BackingField: {fileID: 21300000, guid: cceab25075e095c4a9853260b0065ff6,
+    type: 3}
+  <isStackable>k__BackingField: 0
+  <maxStack>k__BackingField: 1

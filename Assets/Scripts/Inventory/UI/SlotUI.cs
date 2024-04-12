@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SlotUI : MonoBehaviour
+public class SlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDropHandler, IEndDragHandler, IDragHandler
 {
     [SerializeField] private Image itemImage;
     [SerializeField] private Text itemAmountText;
@@ -45,28 +45,9 @@ public class SlotUI : MonoBehaviour
         borderImage.enabled = true;
     }
     
-    public void OnBeginDrag()
-    {
-        if (empty)
-        {
-            return;
-        }
-        OnItemBeginDrag?.Invoke(this);
-    }
 
-    public void OnDrop()
+    public void OnPointerClick(PointerEventData pointerData)
     {
-        OnItemDroppedOn?.Invoke(this);
-    }
-    
-    public void OnEndDrag()
-    {
-        OnItemEndDrag?.Invoke(this);
-    }
-    
-    public void OnPointerClick(BaseEventData data)
-    {
-        PointerEventData pointerData = (PointerEventData) data;
         if (pointerData.button == PointerEventData.InputButton.Left)
         {
             OnItemClicked?.Invoke(this);
@@ -75,5 +56,29 @@ public class SlotUI : MonoBehaviour
         {
             OnItemRightClicked?.Invoke(this);
         }
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (empty)
+        {
+            return;
+        }
+        OnItemBeginDrag?.Invoke(this);
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        OnItemDroppedOn?.Invoke(this);
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        OnItemEndDrag?.Invoke(this);
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        
     }
 }
