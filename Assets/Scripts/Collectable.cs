@@ -6,17 +6,21 @@ using UnityEngine;
 public class Collectable : MonoBehaviour
 {
     private Rigidbody rb;
-    public SphereCollider sphereCollider;
+    private SphereCollider sphereCollider;
     
     private bool grounded;
     
     public float attractSpeed = 5f;
-    public float destroyDistance = 0.3f;
+    public float pickUpRadius = 0.3f;
     public float rotationSpeed = 50f;
+    
+    public ItemData itemData;
+    private InventoryHolder inventory;  // 待改
     
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        sphereCollider = transform.GetChild(0).GetComponent<SphereCollider>();
     }
 
     private void OnCollisionEnter(Collision other)
@@ -29,17 +33,30 @@ public class Collectable : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        
+        
         if (other.CompareTag("Player") && grounded)
         {
-            rb.useGravity = false;
-            sphereCollider.enabled = false;
+            inventory = other.GetComponent<InventoryHolder>();
+            if (!inventory) return;
             
-            transform.position = Vector3.MoveTowards(transform.position, other.transform.GetChild(1).position,
-                attractSpeed * Time.deltaTime);
-            if (Vector3.Distance(transform.position, other.transform.GetChild(1).position) < destroyDistance)
+            if (inventory.InventorySystem.CheckAvailable(itemData, 1))
             {
-                Destroy(gameObject);
+                rb.useGravity = false;
+                sphereCollider.enabled = false;
+            
+                transform.position = Vector3.MoveTowards(transform.position, other.transform.GetChild(1).position,
+                    attractSpeed * Time.deltaTime);
+            
+                if (Vector3.Distance(transform.position, other.transform.GetChild(1).position) < pickUpRadius)
+                {
+                
+                    Destroy(gameObject);
+                    
+                
+                }
             }
+            
         }
     }
 
@@ -50,4 +67,14 @@ public class Collectable : MonoBehaviour
             transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
         }
     }
+
+    private void OnDestroy()
+    {
+        if (inventory)
+        {
+            inventory.InventorySystem.AddToInventory(itemData, 1);
+        }
+    }
+    
+    
 }
