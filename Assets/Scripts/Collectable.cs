@@ -15,7 +15,7 @@ public class Collectable : MonoBehaviour
     public float rotationSpeed = 50f;
     
     public ItemData itemData;
-    private InventoryHolder inventory;  // 待改
+    private PlayerInventoryHolder inventory;  // 待改
     
     private void Start()
     {
@@ -37,10 +37,11 @@ public class Collectable : MonoBehaviour
         
         if (other.CompareTag("Player") && grounded)
         {
-            inventory = other.GetComponent<InventoryHolder>();
+            inventory = other.GetComponent<PlayerInventoryHolder>();
             if (!inventory) return;
-            
-            if (inventory.InventorySystem.CheckAvailable(itemData, 1))
+
+            if (inventory.PrimaryInventorySystem.CheckAvailable(itemData, 1) ||
+                inventory.SecondaryInventorySystem.CheckAvailable(itemData, 1))
             {
                 rb.useGravity = false;
                 sphereCollider.enabled = false;
@@ -70,9 +71,9 @@ public class Collectable : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (inventory)
+        if (inventory)  // bug
         {
-            inventory.InventorySystem.AddToInventory(itemData, 1);
+            inventory.AddToInventory(itemData, 1);
         }
     }
     
