@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class RandomObjectsSpawner : MonoBehaviour
 {
-    public Vector3 generationAreaSize = new Vector3(100f, 1f, 100f);
+    public GridManager gridManager;
     
-    public GameObject containerPrefab;
+    // public Vector3 generationAreaSize = new Vector3(100f, 1f, 100f);
+    
+    public Transform containerPrefab;
     public List<PrefabAmountPair> prefabList;
     
     [System.Serializable]
-    public class PrefabAmountPair
+    public struct PrefabAmountPair
     {
-        public GameObject prefab;
+        public Transform prefab;
         public int amount;
     }
     
@@ -21,7 +23,7 @@ public class RandomObjectsSpawner : MonoBehaviour
     {
         foreach (PrefabAmountPair pair in prefabList)
         {
-            GameObject container = Instantiate(containerPrefab);
+            Transform container = Instantiate(containerPrefab);
             container.name = pair.prefab.name + " Container";
             Generate(pair.prefab, pair.amount, container.transform);
         }
@@ -29,32 +31,34 @@ public class RandomObjectsSpawner : MonoBehaviour
     
     
     
-    void Generate(GameObject prefab, int numberOfPrefabInstances,Transform parentContainer)
+    void Generate(Transform prefab, int prefabAmount,Transform parentContainer)
     {
-        for (int i = 0; i < numberOfPrefabInstances; i++)
+        for (int i = 0; i < prefabAmount; i++)
         {
-            Vector3 randomPosition = GetRandomPositionInGenerationArea();
+            GridObject randomGridObject = GetRandomGridObject();
+            Vector3 randomPosition = GetRandomSpawnPositionInGrid(randomGridObject);
             Quaternion randomRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-            Instantiate(prefab, randomPosition, randomRotation, parentContainer);
+            
+            Transform prefabInstance = Instantiate(prefab, randomPosition, randomRotation, parentContainer);
+            randomGridObject.SetTransform(prefabInstance);
         }
     }
     
-    Vector3 GetRandomPositionInGenerationArea()
+    Vector3 GetRandomSpawnPositionInGrid(GridObject obj)  // 需先獲得GridObject
     {
-        Vector3 randomPosition = new Vector3(
-            Random.Range(-generationAreaSize.x / 2, generationAreaSize.x / 2),
-            0f,
-            Random.Range(-generationAreaSize.z / 2, generationAreaSize.z / 2)
-        );
+        
         
         // randomPosition.y = Terrain.activeTerrain.SampleHeight(randomPosition);
-
-        return transform.position + randomPosition;
+        return gridManager.grid.GetCenterPositionInGrid(obj.x, obj.z);
     }
     
-    void OnDrawGizmosSelected()
+    GridObject GetRandomGridObject()
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position, generationAreaSize);
+        int x = Random.Range(0, gridManager.gridWidth);
+        int z = Random.Range(0, gridManager.gridHeight);
+        return gridManager.grid.GetValue(x, z);
     }
+    
+    
+    
 }

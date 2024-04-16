@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
+    [HideInInspector] public Vector3 moveDir;
 
     private void Start()
     {
@@ -38,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
             
             currentSpeed = (Input.GetKey(KeyCode.R)) ? runSpeed : walkSpeed;
             
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * currentSpeed * Time.deltaTime);
         }
         else
