@@ -23,20 +23,23 @@ public class PlayerInventoryHolder : InventoryHolder
         if (Input.GetKeyDown(KeyCode.B)) OnPlayerBackpackDisplayRequested?.Invoke(secondaryInventorySystem);
         
     }
+
+    public bool CheckAvailable(ItemData data, int amount)
+    {
+        return primaryInventorySystem.CheckAvailable(data, amount) ||
+               secondaryInventorySystem.CheckAvailable(data, amount);
+    }
     
-    public bool AddToInventory(ItemData data, int amount)
+    public void AddToInventory(ItemData data, int amount)
     {
         if (primaryInventorySystem.CheckAvailable(data, amount))
         {
             primaryInventorySystem.AddToInventory(data, amount);
-            return true;
         }
         else if (secondaryInventorySystem.CheckAvailable(data, amount))
         {
             secondaryInventorySystem.AddToInventory(data, amount);
-            return true;
         }
         
-        return false;
     }
 }

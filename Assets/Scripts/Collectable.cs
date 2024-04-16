@@ -11,6 +11,7 @@ public class Collectable : MonoBehaviour
     private bool grounded;
     
     public float attractSpeed = 5f;
+    public float attractSpeedWhileRunning = 6.5f;
     public float pickUpRadius = 0.3f;
     public float rotationSpeed = 50f;
     
@@ -30,34 +31,47 @@ public class Collectable : MonoBehaviour
             grounded = true;
         }
     }
+    
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            grounded = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && grounded) inventory = other.GetComponent<PlayerInventoryHolder>();
+    }
 
     private void OnTriggerStay(Collider other)
     {
-        
-        
-        if (other.CompareTag("Player") && grounded)
-        {
-            inventory = other.GetComponent<PlayerInventoryHolder>();
-            if (!inventory) return;
 
-            if (inventory.PrimaryInventorySystem.CheckAvailable(itemData, 1) ||
-                inventory.SecondaryInventorySystem.CheckAvailable(itemData, 1))
+        if (other.CompareTag("Player") && inventory.CheckAvailable(itemData, 1))
+        {
+            rb.useGravity = false;
+            sphereCollider.enabled = false;
+                
+            PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
+            attractSpeed = (playerMovement.currentSpeed == playerMovement.runSpeed) ? attractSpeedWhileRunning : attractSpeed;
+            
+            transform.position = Vector3.MoveTowards(transform.position, other.transform.GetChild(1).position,
+                attractSpeed * Time.deltaTime);
+            
+            if (Vector3.Distance(transform.position, other.transform.GetChild(1).position) < pickUpRadius)//
             {
-                rb.useGravity = false;
-                sphereCollider.enabled = false;
-            
-                transform.position = Vector3.MoveTowards(transform.position, other.transform.GetChild(1).position,
-                    attractSpeed * Time.deltaTime);
-            
-                if (Vector3.Distance(transform.position, other.transform.GetChild(1).position) < pickUpRadius)
-                {
-                
-                    Destroy(gameObject);
-                    
-                
-                }
+                Destroy(gameObject);
             }
-            
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            rb.useGravity = true;
+            sphereCollider.enabled = true;
         }
     }
 
@@ -71,7 +85,7 @@ public class Collectable : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (inventory)  // bug
+        if (inventory)
         {
             inventory.AddToInventory(itemData, 1);
         }
