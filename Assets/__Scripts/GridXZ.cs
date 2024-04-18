@@ -150,4 +150,38 @@ public class GridXZ<TGridObject>
         GetXZ(worldPosition, out x, out z);
         return GetValue(x, z);
     }
+    
+    public bool IsValidGridPosition(Vector2Int gridPosition) {
+        int x = gridPosition.x;
+        int z = gridPosition.y;
+
+        if (x >= 0 && z >= 0 && x < width && z < height) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /*
+    public Vector2Int ValidateGridPosition(Vector2Int gridPosition) {
+        return new Vector2Int(
+            Mathf.Clamp(gridPosition.x, 0, width - 1),
+            Mathf.Clamp(gridPosition.y, 0, height - 1)
+        );
+    }
+
+    
+
+    public bool IsValidGridPositionWithPadding(Vector2Int gridPosition) {
+        Vector2Int padding = new Vector2Int(2, 2);
+        int x = gridPosition.x;
+        int z = gridPosition.y;
+
+        if (x >= padding.x && z >= padding.y && x < width - padding.x && z < height - padding.y) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+     */
 }

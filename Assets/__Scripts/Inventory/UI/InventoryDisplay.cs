@@ -6,11 +6,11 @@ using UnityEngine.Events;
 
 public abstract class InventoryDisplay : MonoBehaviour
 {
-    [SerializeField] MouseItemData mouseInventoryItem;
+    [SerializeField] MouseObject mouseInventoryItem;
     
-    protected InventorySystem inventorySystem;  // 繼承來指定
+    protected InventorySO inventorySO;  // 繼承來指定
     protected Dictionary<SlotUI, Slot> slotDictionary;
-    public InventorySystem InventorySystem => inventorySystem;
+    public InventorySO InventorySO => inventorySO;
     public Dictionary<SlotUI, Slot> SlotDictionary => slotDictionary;
 
     protected virtual void Start()
@@ -18,7 +18,7 @@ public abstract class InventoryDisplay : MonoBehaviour
         
     }
 
-    public abstract void AssignSlotList(InventorySystem invToDisplay);  // implement in child classes
+    public abstract void AssignSlotList(InventorySO invToDisplay);  // implement in child classes
     
     protected virtual void UpdateSlotUIList(Slot updatedSlot)   // 維持update字樣
     {

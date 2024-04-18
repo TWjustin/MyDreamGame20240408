@@ -93,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 47623090458315263}
   - component: {fileID: 7876905328211376850}
-  - component: {fileID: 6380517298346626162}
+  - component: {fileID: -3094667767522862869}
   m_Layer: 10
   m_Name: BigChest
   m_TagString: Untagged
@@ -139,7 +139,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6380517298346626162
+--- !u!114 &-3094667767522862869
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,12 +148,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4651114991617377218}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f9d9ebc41ce07e4586c79ffd1f438e8, type: 3}
+  m_Script: {fileID: 11500000, guid: 1506c187a07e7aa4aa4a012ea1a21429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventorySize: 20
-  primaryInventorySystem:
-    slots: []
+  inventorySizeData: {fileID: 11400000, guid: 9b1e384d97e35d94d8852b8b236a30d4, type: 2}
+  inventoryType: 3
 --- !u!1 &5657239961379228808
 GameObject:
   m_ObjectHideFlags: 0

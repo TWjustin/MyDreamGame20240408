@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class HotbarSelection : MonoBehaviour
 {
-    public PlayerInventoryHolder playerInventoryHolder;
+    public PlayerInventory playerInventory;
     
     private int currentIndex;
     private Slot selectedSlot;
@@ -17,7 +17,7 @@ public class HotbarSelection : MonoBehaviour
     
     private void Start()
     {
-        hotbarSlotList = playerInventoryHolder.primaryInventorySystem.Slots;
+        hotbarSlotList = playerInventory.hotbarSO.slotList;
         hotbarSlotUIArray = GetComponentsInChildren<SlotUI>();
         
         Select(0);

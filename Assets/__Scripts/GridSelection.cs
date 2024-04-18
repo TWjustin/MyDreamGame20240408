@@ -14,7 +14,7 @@ public class GridSelection : MonoBehaviour // 移到player
     [HideInInspector] public int gridZ;
     [HideInInspector] public Vector3 gridPosition;  //
     
-    public GridObject interactingGridObject;    //
+    public GridObject interactingGridObject;
 
     private void Update()
     {

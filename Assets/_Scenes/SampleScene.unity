@@ -388,9 +388,9 @@ GameObject:
   - component: {fileID: 132548875}
   - component: {fileID: 132548878}
   - component: {fileID: 132548877}
-  - component: {fileID: 132548876}
   - component: {fileID: 132548880}
   - component: {fileID: 132548879}
+  - component: {fileID: 132548876}
   m_Layer: 5
   m_Name: DynamicInventory
   m_TagString: Untagged
@@ -1504,25 +1504,13 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3744348800772105622}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &540779102 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7246103456147634784, guid: 6aadb0eebc47e7d468ed42846e20fe06,
-    type: 3}
-  m_PrefabInstance: {fileID: 3744348800772105622}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3744348800772105623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bad694535ee036347af79e52bf1be371, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &540779106 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8117523655134119530, guid: 6aadb0eebc47e7d468ed42846e20fe06,
     type: 3}
   m_PrefabInstance: {fileID: 3744348800772105622}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3744348800772105623}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2299ef58a30620f4ea6b0fae0eba2104, type: 3}
@@ -3069,7 +3057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5cdfd8c67cba6846b22b89760e19fbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInventoryHolder: {fileID: 540779102}
+  playerInventory: {fileID: 3744348800772105624}
   selectionFrame: {fileID: 778590090}
 --- !u!1001 &962166125
 PrefabInstance:
@@ -4212,7 +4200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288043364}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.12712362, y: 0.000000017066784, z: -0.0000000021873372, w: 0.9918869}
+  m_LocalRotation: {x: 0.12712362, y: -0.000000017066785, z: 0.0000000021873374, w: 0.9918869}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5955,7 +5943,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseInventoryItem: {fileID: 1483375849}
-  inventoryHolder: {fileID: 540779102}
+  playerInventory: {fileID: 3744348800772105624}
   slotUIs:
   - {fileID: 1434293474136572828}
   - {fileID: 1686445284}
@@ -8163,35 +8151,23 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 401922197530640065, guid: 6aadb0eebc47e7d468ed42846e20fe06, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3514117515918346677, guid: 6aadb0eebc47e7d468ed42846e20fe06,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3744348800772105624}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6aadb0eebc47e7d468ed42846e20fe06, type: 3}
---- !u!1 &3744348800772105623 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3514117515918346677, guid: 6aadb0eebc47e7d468ed42846e20fe06,
+--- !u!114 &3744348800772105624 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3683360713862849176, guid: 6aadb0eebc47e7d468ed42846e20fe06,
     type: 3}
   m_PrefabInstance: {fileID: 3744348800772105622}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3744348800772105624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3744348800772105623}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 821e440dc589079499524a2f815ba4f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventorySizeData: {fileID: 11400000, guid: 9b1e384d97e35d94d8852b8b236a30d4, type: 2}
 --- !u!1001 &5937990545601785865
 PrefabInstance:
   m_ObjectHideFlags: 0

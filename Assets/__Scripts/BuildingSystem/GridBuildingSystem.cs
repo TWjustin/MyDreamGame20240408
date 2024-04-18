@@ -20,7 +20,7 @@ public class GridBuildingSystem : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) && gridSelection.interactingGridObject != null) 
         {
             // GridObject offsetGrid = selectionManager.interactingGridObject;
             dir = PlacedObjectTypeSO.GetDir(playerMovement.moveDir);

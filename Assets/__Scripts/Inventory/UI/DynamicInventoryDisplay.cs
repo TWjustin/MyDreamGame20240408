@@ -14,15 +14,15 @@ public class DynamicInventoryDisplay : InventoryDisplay
     }
     
 
-    public void RefreshDynamicInventory(InventorySystem invToDisplay)
+    public void RefreshDynamicInventory(InventorySO invToDisplay)
     {
         ClearSlots();
-        inventorySystem = invToDisplay;
-        if (inventorySystem != null) inventorySystem.OnSlotChanged += UpdateSlotUIList;
+        inventorySO = invToDisplay;
+        if (inventorySO != null) inventorySO.OnSlotChanged += UpdateSlotUIList;
         AssignSlotList(invToDisplay);
     }
 
-    public override void AssignSlotList(InventorySystem invToDisplay)
+    public override void AssignSlotList(InventorySO invToDisplay)
     {
         ClearSlots();
         
@@ -34,12 +34,12 @@ public class DynamicInventoryDisplay : InventoryDisplay
             return;
         }
         
-        for (int i = 0; i < invToDisplay.InventorySize; i++)
+        for (int i = 0; i < invToDisplay.inventorySize; i++)
         {
             SlotUI newSlotUI = Instantiate(slotUIPrefab, transform);
-            newSlotUI.AssignSlot(invToDisplay.Slots[i]);
+            newSlotUI.AssignSlot(invToDisplay.slotList[i]);
             newSlotUI.SetSlotUI();
-            slotDictionary.Add(newSlotUI, invToDisplay.Slots[i]);
+            slotDictionary.Add(newSlotUI, invToDisplay.slotList[i]);
         }
     }
 
@@ -55,6 +55,6 @@ public class DynamicInventoryDisplay : InventoryDisplay
 
     private void OnDisable()
     {
-        if (inventorySystem != null) inventorySystem.OnSlotChanged -= UpdateSlotUIList;
+        if (inventorySO != null) inventorySO.OnSlotChanged -= UpdateSlotUIList;
     }
 }

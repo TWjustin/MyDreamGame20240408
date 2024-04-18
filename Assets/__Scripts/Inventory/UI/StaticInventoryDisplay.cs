@@ -4,40 +4,40 @@ using UnityEngine;
 
 public class StaticInventoryDisplay : InventoryDisplay
 {
-    [SerializeField] private InventoryHolder inventoryHolder;
+    [SerializeField] private PlayerInventory playerInventory;
     [SerializeField] private SlotUI[] slotUIs;
     
     protected override void Start()
     {
         base.Start();
 
-        if (inventoryHolder != null)
+        if (playerInventory != null)
         {
-            inventorySystem = inventoryHolder.PrimaryInventorySystem;
-            inventorySystem.OnSlotChanged += UpdateSlotUIList;
+            inventorySO = playerInventory.hotbarSO;
+            inventorySO.OnSlotChanged += UpdateSlotUIList;
         }
         else
         {
             Debug.LogWarning("No inventory holder assigned to " + gameObject.name);
         }
         
-        AssignSlotList(inventorySystem);
+        AssignSlotList(inventorySO);
     }
 
-    public override void AssignSlotList(InventorySystem invToDisplay)
+    public override void AssignSlotList(InventorySO invToDisplay)
     {
         slotDictionary = new Dictionary<SlotUI, Slot>();
 
-        if (slotUIs.Length != inventorySystem.InventorySize)
+        if (slotUIs.Length != inventorySO.inventorySize)
         {
             Debug.LogWarning("inventory slots out of sync on " + gameObject.name);
             return;
         }
 
-        for (int i = 0; i < inventorySystem.InventorySize; i++)
+        for (int i = 0; i < inventorySO.inventorySize; i++)
         {
-            slotDictionary.Add(slotUIs[i], inventorySystem.Slots[i]);
-            slotUIs[i].AssignSlot(inventorySystem.Slots[i]);
+            slotDictionary.Add(slotUIs[i], inventorySO.slotList[i]);
+            slotUIs[i].AssignSlot(inventorySO.slotList[i]);
         }
     }
 }
