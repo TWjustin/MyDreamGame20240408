@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,4 +7,9 @@ using UnityEngine;
 public class FoodItem : ItemData
 {
     public int restoreEnergyValue;
+
+    private void Awake()
+    {
+        itemType = ItemType.Consumable;
+    }
 }

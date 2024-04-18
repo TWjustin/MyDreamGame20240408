@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,11 @@ public class PlacedObjectTypeSO : ItemData
     // public Transform visual;
     public int width = 1;
     public int height = 1;
+
+    private void Awake()
+    {
+        itemType = ItemType.Placeable;
+    }
 
     public static Dir GetDir(Vector3 vec)
     {

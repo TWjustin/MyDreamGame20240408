@@ -14,16 +14,18 @@ public class ToolItem : ItemData
     private void Awake()
     {
         stackable = false;
+        itemType = ItemType.Tool;
     }
 }
 
 public enum ToolType
 {
+    Default,
     Axe,
     Pickaxe,
     Hoe,    // 鋤頭
     Scythe, // 鐮刀
     Sword,
     Shovel,
-    Default
+    
 }
