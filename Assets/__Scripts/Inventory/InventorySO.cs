@@ -5,11 +5,11 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.Events;
 
-[CreateAssetMenu(fileName = "Inventory", menuName = "Inventory/Inventory SO")]
+// [CreateAssetMenu(fileName = "Inventory", menuName = "Inventory/Inventory SO")]
 public class InventorySO : ScriptableObject
 {
-    [HideInInspector] public List<Slot> slotList;
-    [HideInInspector] public int inventorySize;
+    public int inventorySize;
+    public List<Slot> slotList;
     
     public UnityAction<Slot> OnSlotChanged;
     

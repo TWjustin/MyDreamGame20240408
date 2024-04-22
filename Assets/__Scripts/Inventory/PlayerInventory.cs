@@ -2,20 +2,29 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public InventorySizeData inventorySizeData;
+    
     
     [HideInInspector] public InventorySO hotbarSO;
     [HideInInspector] public InventorySO backpackSO;
+    public InventorySO debugHotbarSO;
+    public InventorySO debugBackpackSO;
+    
+    public static UnityAction<InventorySO> OnDynamicInventoryDisplayRequested;
 
     private void Awake()
     {
-        hotbarSO = inventorySizeData.InventoryUnitInit(InventoryType.Hotbar);
-        backpackSO = inventorySizeData.InventoryUnitInit(InventoryType.Backpack);
+        hotbarSO = DataSingleton.Instance.inventorySizeData.InventoryUnitInit(InventoryType.Hotbar);
+        backpackSO = DataSingleton.Instance.inventorySizeData.InventoryUnitInit(InventoryType.Backpack);
         
-        Debug.Log(hotbarSO.slotList.Count);
+        // Debug.Log(backpackSO.slotList.Count);
+        
+        // just for debugging
+        debugHotbarSO = hotbarSO;
+        debugBackpackSO = backpackSO;
     }
 
     public bool CheckAvailable(ItemData itemToAdd, int amountToAdd)
@@ -34,5 +43,11 @@ public class PlayerInventory : MonoBehaviour
         {
             backpackSO.AddToInventory(itemToAdd, amountToAdd);
         }
+    }
+    
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Z)) OnDynamicInventoryDisplayRequested?.Invoke(backpackSO);
+
     }
 }

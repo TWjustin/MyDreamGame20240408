@@ -11,7 +11,8 @@ public class HotbarSelection : MonoBehaviour
     private Slot selectedSlot;
     private List<Slot> hotbarSlotList;
     private SlotUI[] hotbarSlotUIArray;
-    private ItemData selectedItem;
+    public static ItemData selectedItem;
+    // 手持物件?
     
     public GameObject selectionFrame;
     

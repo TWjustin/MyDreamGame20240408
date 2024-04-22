@@ -18,7 +18,7 @@ public class GridBuildingSystem : MonoBehaviour
         placedObjectTypeSO = placedObjectTypeSOList[0];
     }
 
-    void Update()
+    void Update()   // todo: gridX, gridZ
     {
         if (Input.GetKeyDown(KeyCode.P) && gridSelection.interactingGridObject != null) 
         {
@@ -46,17 +46,14 @@ public class GridBuildingSystem : MonoBehaviour
                 Vector3 placedObjectWorldPosition =
                     gridManager.grid.GetWorldPosition(gridSelection.gridX, gridSelection.gridZ) + 
                     new Vector3(rotationOffset.x, 0, rotationOffset.y) * gridManager.cellSize;
-                
-                Transform builtTransform = 
-                    Instantiate(
-                        placedObjectTypeSO.prefab, 
-                        placedObjectWorldPosition, 
-                        Quaternion.Euler(0, placedObjectTypeSO.GetRotationAngle(dir), 0));
 
+                PlacedObject placedObject = PlacedObject.Create(placedObjectWorldPosition,
+                    new Vector2Int(gridSelection.gridX, gridSelection.gridZ), placedObjectTypeSO, dir);
+                
                 foreach (var gridPosition in gridPositionList)
                 {
                     GridObject g = gridManager.grid.GetValue(gridPosition.x, gridPosition.y);
-                    g.SetTransform(builtTransform);
+                    g.SetPlacedObject(placedObject);
                     g.CreatePropertyDebugText();
                 }
                 
@@ -65,6 +62,29 @@ public class GridBuildingSystem : MonoBehaviour
             {
                 Debug.Log("Cannot build here");
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))    // 暫時
+        {
+            GridObject gridObject = gridManager.grid.GetValue(gridSelection.gridX, gridSelection.gridZ);
+            PlacedObject placedObject = gridObject.GetPlacedObject();
+            if (placedObject != null)
+            {
+                placedObject.DestroySelf();
+
+                List<Vector2Int> gridPositionList = placedObject.GetGridPositionList();
+                foreach (var gridPosition in gridPositionList)
+                {
+                    gridManager.grid.GetValue(gridPosition.x, gridPosition.y).ClearPlacedObject();
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            // todo
+            // dir = PlacedObjectTypeSO.GetNextDir(dir);
+            // Debug.Log(dir);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) placedObjectTypeSO = placedObjectTypeSOList[0];

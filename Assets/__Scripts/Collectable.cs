@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collectable : MonoBehaviour
+public class Collectable : MonoBehaviour    // 改為用檢的
 {
     private Rigidbody rb;
     private SphereCollider sphereCollider;  // 跟地面接觸的collider

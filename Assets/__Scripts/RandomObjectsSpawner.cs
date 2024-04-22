@@ -8,13 +8,13 @@ public class RandomObjectsSpawner : MonoBehaviour
     
     // public Vector3 generationAreaSize = new Vector3(100f, 1f, 100f);
     
-    public Transform containerPrefab;
+    public GameObject containerPrefab;
     public List<PrefabAmountPair> prefabList;
     
     [System.Serializable]
     public struct PrefabAmountPair
     {
-        public Transform prefab;
+        public GameObject prefab;
         public int amount;
     }
     
@@ -23,7 +23,7 @@ public class RandomObjectsSpawner : MonoBehaviour
     {
         foreach (PrefabAmountPair pair in prefabList)
         {
-            Transform container = Instantiate(containerPrefab);
+            GameObject container = Instantiate(containerPrefab);
             container.name = pair.prefab.name + " Container";
             Generate(pair.prefab, pair.amount, container.transform);
         }
@@ -31,7 +31,7 @@ public class RandomObjectsSpawner : MonoBehaviour
     
     
     
-    void Generate(Transform prefab, int prefabAmount,Transform parentContainer)
+    void Generate(GameObject prefab, int prefabAmount,Transform parentContainer)
     {
         for (int i = 0; i < prefabAmount; i++)
         {
@@ -39,8 +39,8 @@ public class RandomObjectsSpawner : MonoBehaviour
             Vector3 randomPosition = GetRandomSpawnPositionInGrid(randomGridObject);
             Quaternion randomRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
             
-            Transform prefabInstance = Instantiate(prefab, randomPosition, randomRotation, parentContainer);
-            randomGridObject.SetTransform(prefabInstance);
+            GameObject prefabInstance = Instantiate(prefab, randomPosition, randomRotation, parentContainer);
+            // randomGridObject.SetTransform(prefabInstance); todo: fix
         }
     }
     

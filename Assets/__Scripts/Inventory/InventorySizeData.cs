@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "InventorySizeData", menuName = "Inventory/Inventory Size Data")]
+[CreateAssetMenu(fileName = "InventorySizeData", menuName = "Data Form/Inventory Size Data")]
 public class InventorySizeData : ScriptableObject
 {
     public List<InventorySizePair> invenSizePairs = new List<InventorySizePair>();

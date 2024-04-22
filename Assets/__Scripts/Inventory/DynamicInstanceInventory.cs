@@ -2,18 +2,26 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DynamicInstanceInventory : MonoBehaviour
 {
-    public InventorySizeData inventorySizeData;
+    public InventoryType inventoryType;
+    public InventorySO inventorySO;
     
-    private InventoryType inventoryType;
-    private InventorySO inventorySO;
-    
+    public static UnityAction<InventorySO> OnDynamicInventoryDisplayRequested;
     
     private void Awake()
     {
-        inventorySO = inventorySizeData.InventoryUnitInit(inventoryType);
+        inventorySO = DataSingleton.Instance.inventorySizeData.InventoryUnitInit(inventoryType);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            OnDynamicInventoryDisplayRequested?.Invoke(inventorySO);
+        }
     }
 }
 

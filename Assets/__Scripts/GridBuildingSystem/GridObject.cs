@@ -1,31 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
-
-public class GridManager : MonoBehaviour    // singleton?
-{
-    public GridXZ<GridObject> grid;
-
-    public int gridWidth = 50;
-    public int gridHeight = 50;
-    public float cellSize = 1f;
-
-    private void Awake()
-    {
-        grid = new GridXZ<GridObject>(gridWidth, gridHeight, cellSize, new Vector3(-gridWidth / 2, 0, -gridHeight / 2),
-            (GridXZ<GridObject> g, int x, int z, float c) => new GridObject(g, x, z, c));
-    }
-    
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position,
-            new Vector3(gridWidth, 1, gridHeight) * cellSize);
-    }
-    
-}
 
 public class GridObject
 {
@@ -34,7 +10,7 @@ public class GridObject
     public int z { get; private set; }
     private float cellSize;
     
-    private Transform transform;
+    private PlacedObject placedObject;
     
     // public GameObject belongingObject;
     private bool selected;  //
@@ -46,33 +22,38 @@ public class GridObject
         this.z = z;
     }
 
-    public void SetTransform(Transform transform)
+    public void SetPlacedObject(PlacedObject placedObject)
     {
-        this.transform = transform;
+        this.placedObject = placedObject;
         grid.TriggerGridObjectChanged(x, z);
     }
     
-    public void ClearTransform()
+    public PlacedObject GetPlacedObject()
     {
-        transform = null;
+        return placedObject;
+    }
+    
+    public void ClearPlacedObject()
+    {
+        placedObject = null;
         grid.TriggerGridObjectChanged(x, z);
     }
     
     public bool CanBuild()
     {
-        return transform == null;
+        return placedObject == null;
     }
     
     public void CreatePropertyDebugText()
     {
-        string text = x + ", " + z + ", " + transform;
+        string text = x + ", " + z + ", " + placedObject.name;
         TextMesh textMesh = UtilsClass.CreateWorldText(text, null,
             grid.GetWorldPosition(this) + new Vector3(cellSize, 0, cellSize) * 0.5f, 12, Color.black,
             TextAnchor.MiddleCenter);
         textMesh.transform.localScale = Vector3.one * .13f;
     }
         
-    public BoundsInt GetBoundsInt()
+    public BoundsInt GetBoundsInt() // 自己加的
     {
         return new BoundsInt(new Vector3Int(x, 0, z), new Vector3Int(1, 20, 1));
     }

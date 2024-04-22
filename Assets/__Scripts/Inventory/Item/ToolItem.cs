@@ -25,7 +25,7 @@ public enum ToolType
     Pickaxe,
     Hoe,    // 鋤頭
     Scythe, // 鐮刀
-    Sword,
+    // Sword, Spear
     Shovel,
-    
+    Hammer
 }

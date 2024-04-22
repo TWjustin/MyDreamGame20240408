@@ -9,7 +9,7 @@ public class ItemData : ScriptableObject    // 保留
     public Sprite icon;
     public string itemName;
     public ItemType itemType = ItemType.Default;
-    [TextArea(4, 4)] public string description;
+    [TextArea(4, 4)] public string description = "Item Description";
     public GameObject collectablePrefab;    // 新的
     
     [Header("Item Properties")]
@@ -26,7 +26,16 @@ public enum ItemType
 {
     Default,
     Tool,
-    Dress,
     Consumable,
-    Placeable
+    Placeable,
+    Clothing,
+    Armor,
+    Weapon,
+    Functional,
+    Equipment,
+}
+
+public enum FilterSort
+{
+    
 }

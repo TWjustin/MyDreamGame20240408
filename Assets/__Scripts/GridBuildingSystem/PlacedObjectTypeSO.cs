@@ -17,7 +17,7 @@ public class PlacedObjectTypeSO : ItemData
     // public static Dir GetDir(Vector2Int from, Vector2Int to)
     
     [Header("Placed Object Properties")]
-    public Transform prefab;
+    public GameObject prefab;
     // public bool isGridObject;
     // public Transform visual;
     public int width = 1;

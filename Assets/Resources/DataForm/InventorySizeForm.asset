@@ -16,10 +16,10 @@ MonoBehaviour:
   - inventoryType: 0
     inventorySize: 10
   - inventoryType: 1
-    inventorySize: 30
+    inventorySize: 25
   - inventoryType: 2
-    inventorySize: 10
+    inventorySize: 18
   - inventoryType: 3
-    inventorySize: 20
+    inventorySize: 36
   - inventoryType: 4
     inventorySize: 10

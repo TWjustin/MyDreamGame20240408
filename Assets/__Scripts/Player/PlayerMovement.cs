@@ -8,13 +8,23 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     private Transform cam;
     
+    // 移動速度參數
     public float walkSpeed = 6f;
     public float runSpeed = 12f;
     [HideInInspector] public float currentSpeed;
     
+    // 移動方向、轉向
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
     [HideInInspector] public Vector3 moveDir;
+    
+    // 重力
+    public float gravity = -9.81f;
+    private Vector3 velocity;   // 總速度
+    public Transform groundCheck;   // 和地面接觸的點
+    public float groundDistance = 0.4f;   // 地面距離
+    public LayerMask groundMask;   // 地面的Layer
+    private bool isGrounded;
 
     private void Start()
     {
@@ -38,13 +48,22 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             
             currentSpeed = (Input.GetKey(KeyCode.R)) ? runSpeed : walkSpeed;
-            
-            moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+
+            moveDir = (Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward).normalized;
             controller.Move(moveDir.normalized * currentSpeed * Time.deltaTime);
         }
         else
         {
             currentSpeed = 0;
         }
+        
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
+        velocity.y += gravity * Time.deltaTime;
+        
+        controller.Move(velocity * Time.deltaTime);
     }
 }

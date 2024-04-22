@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2186841922745861000}
   - component: {fileID: 5376073872814494508}
   - component: {fileID: 2588701480052003527}
+  - component: {fileID: 9078328938001771255}
   m_Layer: 10
   m_Name: Chest
   m_TagString: Untagged
@@ -55,7 +56,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0.5, y: 0.5, z: 0}
 --- !u!114 &2588701480052003527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,8 +69,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1506c187a07e7aa4aa4a012ea1a21429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventorySizeData: {fileID: 11400000, guid: 9b1e384d97e35d94d8852b8b236a30d4, type: 2}
   inventoryType: 2
+  inventorySO: {fileID: 0}
+--- !u!114 &9078328938001771255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133973584965466001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ecd25d86da44164d96e1eb930e86ea7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3080776782983498367
 GameObject:
   m_ObjectHideFlags: 0
