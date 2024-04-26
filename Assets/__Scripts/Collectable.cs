@@ -87,7 +87,7 @@ public class Collectable : MonoBehaviour    // 改為用檢的
     {
         if (playerInventory)
         {
-            playerInventory.AddToInventory(itemData, 1);
+            playerInventory.AddItem(itemData, 1);
         }
     }
     

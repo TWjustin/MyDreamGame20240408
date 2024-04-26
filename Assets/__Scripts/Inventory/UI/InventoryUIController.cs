@@ -16,13 +16,13 @@ public class InventoryUIController : MonoBehaviour
 
     private void OnEnable()
     {
-        DynamicInstanceInventory.OnDynamicInventoryDisplayRequested += DisplayFunctionalInventory;
+        DynamicInventoryTarget.OnDynamicInventoryDisplayRequested += DisplayFunctionalInventory;
         PlayerInventory.OnDynamicInventoryDisplayRequested += DisplayPlayerBackpack;
     }
     
     private void OnDisable()
     {
-        DynamicInstanceInventory.OnDynamicInventoryDisplayRequested -= DisplayFunctionalInventory;
+        DynamicInventoryTarget.OnDynamicInventoryDisplayRequested -= DisplayFunctionalInventory;
         PlayerInventory.OnDynamicInventoryDisplayRequested -= DisplayPlayerBackpack;
     }
 

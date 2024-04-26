@@ -41,7 +41,7 @@ public class InventorySO : ScriptableObject
         }
     }
 
-    public void AddToInventory(ItemData itemToAdd, int amountToAdd)
+    public void AddItem(ItemData itemToAdd, int amountToAdd)
     {
         if (ContainsItem(itemToAdd, amountToAdd, out Slot stackSlot))  // item exists in inventory
         {

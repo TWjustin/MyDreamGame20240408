@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4591999943732427982}
   - component: {fileID: 7974996051634905624}
   - component: {fileID: 3683360713862849176}
+  - component: {fileID: 4928260242803613272}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -136,6 +137,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hotbarSO: {fileID: 0}
   backpackSO: {fileID: 0}
+  debugHotbarSO: {fileID: 0}
+  debugBackpackSO: {fileID: 0}
+--- !u!114 &4928260242803613272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3514117515918346677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5217b325b09e274eac79b88bc496e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInteractUI: {fileID: 0}
+  interactRange: 2
+  longPressThreshold: 1
 --- !u!1 &4506677551981598099
 GameObject:
   m_ObjectHideFlags: 0

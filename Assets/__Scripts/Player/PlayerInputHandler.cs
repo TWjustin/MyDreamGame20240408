@@ -3,97 +3,65 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInputHandler : MonoBehaviour   // todo: 1.多人不要用Singleton 2.記得掛到物件上
+public class PlayerInputHandler : MonoBehaviour
 {
-    private Camera mainCamera;
-    public Transform player;
+    public PlayerInteractUI playerInteractUI;   // todo: 顛倒引用
     
     public float interactRange = 2f;
     
     // 長按
     private float pressTime;
     public float longPressThreshold = 1f;
+    
 
-    #region Singleton
-
-    public static PlayerInputHandler Instance { get; set; }
-        
-        private void Awake()
-        {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                Instance = this;
-            }
-        }
-
-    #endregion
-
-    private void Start()
+    private void Update()
     {
-        mainCamera = Camera.main;
-    }
-
-    void Update()
-    {
-        // Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        // RaycastHit hit;
-        if (Physics.Raycast(player.position, player.forward, 
-                out RaycastHit hit, interactRange))
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, interactRange))  // todo: grid
         {
             // Debug.Log(hit.collider.name);
             var hitTransform = hit.transform;
-            // todo: 白色shader
-            IInteractable interactable = GetInteractableObject(hitTransform);
-            if (Input.GetMouseButtonDown(1) && interactable != null)
+            hitTransform.TryGetComponent(out Target target);
+            if (target != null)
             {
-                // interactable.Interact(transform);
+                playerInteractUI.Show(target, (int)target.inputType);
+                
+                // todo: 白色shader
+                
+                if (Input.GetMouseButtonDown(1))    // todo 取消UI
+                {
+                    target.Interact();
+                }
+                else if (Input.GetMouseButtonDown(0) && HotbarSelection.selectedItem is ToolItem)   // todo 待改
+                {
+                    target.UseItem(HotbarSelection.selectedItem as ToolItem);
+                }
             }
+            else
+            {
+                playerInteractUI.Hide();
+            }
+        }
+        else
+        {
+            playerInteractUI.Hide();
         }
         
-        if (Input.GetMouseButtonDown(0))
-        {
-            // 瞄準先?
-            switch (HotbarSelection.selectedItem.itemType)
-            {
-                case ItemType.Tool:
-                    // 使用工具
-                    break;
-                case ItemType.Placeable:
-                    // 放置物品
-                    break;
-                case ItemType.Weapon:
-                    // 攻擊
-                    break;
-                // 打草、樹枝...
-            }
-        }
-        else if (Input.GetMouseButton(0))
+        
+        // 長按吃東西
+        if (Input.GetMouseButton(0))
         {
             pressTime += Time.deltaTime;
             if (pressTime > longPressThreshold)
             {
-                // 吃?
+                // todo 吃?
             }
         }
         else if (Input.GetMouseButtonUp(0))
         {
             pressTime = 0;
         }
-        else if (Input.GetMouseButtonDown(1))
-        {
-            // 交互
-            // 使用器材
-            // 撿拾
-        }
+        
     }
 
-    public IInteractable GetInteractableObject(Transform objTransform)
-    {
-        objTransform.TryGetComponent(out IInteractable interactable);
-        return interactable;
-    }
+    
 }

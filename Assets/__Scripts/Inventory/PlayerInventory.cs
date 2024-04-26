@@ -6,8 +6,6 @@ using UnityEngine.Events;
 
 public class PlayerInventory : MonoBehaviour
 {
-    
-    
     [HideInInspector] public InventorySO hotbarSO;
     [HideInInspector] public InventorySO backpackSO;
     public InventorySO debugHotbarSO;
@@ -33,15 +31,15 @@ public class PlayerInventory : MonoBehaviour
                backpackSO.CheckAvailable(itemToAdd, amountToAdd);
     }
 
-    public void AddToInventory(ItemData itemToAdd, int amountToAdd)
+    public void AddItem(ItemData itemToAdd, int amountToAdd)
     {
         if (hotbarSO.CheckAvailable(itemToAdd, amountToAdd))
         {
-            hotbarSO.AddToInventory(itemToAdd, amountToAdd);
+            hotbarSO.AddItem(itemToAdd, amountToAdd);
         }
         else if (backpackSO.CheckAvailable(itemToAdd, amountToAdd))
         {
-            backpackSO.AddToInventory(itemToAdd, amountToAdd);
+            backpackSO.AddItem(itemToAdd, amountToAdd);
         }
     }
     
